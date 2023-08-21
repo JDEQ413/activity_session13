@@ -2,7 +2,7 @@ import logging
 
 class CustomLogging():
 
-    def Create_Logger(self, logger_name):
+    def Create_Logger(self, logger_name:str, flag_streamer:bool = False) -> logging:
 
         logger = logging.getLogger(__name__) # Indicamos que tome el nombre del modulo
         logger.setLevel(logging.DEBUG) # Configuramos el nivel de logging
@@ -11,11 +11,11 @@ class CustomLogging():
 
         file_handler = logging.FileHandler(logger_name) # Indicamos el nombre del archivo
         file_handler.setFormatter(formatter) # Configuramos el formato
-
-        stream_handler = logging.StreamHandler()
-        stream_handler.setFormatter(formatter)
-
         logger.addHandler(file_handler) # Agregamos el archivo
-        logger.addHandler(stream_handler)
+        
+        if(flag_streamer):
+            stream_handler = logging.StreamHandler()
+            stream_handler.setFormatter(formatter)
+            logger.addHandler(stream_handler)
 
         return logger

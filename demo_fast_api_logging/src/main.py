@@ -11,7 +11,7 @@ from utilities.custom_logging import CustomLogging
 
 calc = Calculator()
 logger = CustomLogging()
-logger = logger.Create_Logger('main_fast_api.log')
+logger = logger.Create_Logger(logger_name = 'main_fast_api.log', flag_streamer= True)
 
 class CalculatorFormat(str, Enum):
     SHORT = "digital"

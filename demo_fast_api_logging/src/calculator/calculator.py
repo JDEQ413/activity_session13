@@ -3,7 +3,7 @@ import numpy as np
 from utilities.custom_logging import CustomLogging
 
 logger = CustomLogging()
-logger = logger.Create_Logger('calculator.log')
+logger = logger.Create_Logger(logger_name = 'calculator.log')
 
 #logger2 = logging.getLogger(__name__) # Indicamos que tome el nombre del modulo
 #logger2.setLevel(logging.DEBUG) # Configuramos el nivel de logging
