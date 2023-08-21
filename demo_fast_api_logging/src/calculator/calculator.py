@@ -1,5 +1,21 @@
 import string
 import numpy as np
+from utilities.custom_logging import CustomLogging
+
+logger = CustomLogging()
+logger = logger.Create_Logger('calculator.log')
+
+#logger2 = logging.getLogger(__name__) # Indicamos que tome el nombre del modulo
+#logger2.setLevel(logging.DEBUG) # Configuramos el nivel de logging
+
+#formatter2 = logging.Formatter('%(asctime)s:%(name)s:%(module)s:%(levelname)s:%(message)s') # Creamos el formato
+
+#file_handler2 = logging.FileHandler('calculator.log') # Indicamos el nombre del archivo
+
+#file_handler2.setFormatter(formatter2) # Configuramos el formato
+
+#logger2.addHandler(file_handler2) # Agregamos el archivo
+
 
 
 class Calculator:
@@ -16,7 +32,7 @@ class Calculator:
         float
             Fixed float type number.
         """
-
+        
         if isinstance(frac_str, (int, float)):
             return frac_str
 
@@ -51,6 +67,7 @@ class Calculator:
             Result of the sum.
         """
 
+        logger.info("'sum' was called.")
         sum_a = self.get_fractions(a)
         sum_b = self.get_fractions(b)
         return np.sum([sum_a, sum_b])
@@ -73,6 +90,7 @@ class Calculator:
             Result of the substraction.
         """
 
+        logger.info("'substract' was called.")
         minuend = self.get_fractions(a)
         subtrahend = self.get_fractions(b)
         return minuend - subtrahend
@@ -94,6 +112,7 @@ class Calculator:
             Result of the multiplication.
         """
 
+        logger.info("'multiply' was called.")
         multiplicand = self.get_fractions(a)
         multiplier = self.get_fractions(b)
         return multiplicand * multiplier
@@ -116,10 +135,16 @@ class Calculator:
             Result of the division.
         """
 
+        logger.info("'divide' was called.")
         dividend = self.get_fractions(a)
         divider = self.get_fractions(b)
         
         try:
-            return np.divide(dividend, divider)
+            return dividend/divider #np.divide(dividend, divider)
+        except ValueError:
+            logger.error("Error while executing division.")
+            return "Error while executing division."
         except ZeroDivisionError:
+            logger.error("Division by zero is not allowed!")
             return "Division by zero is not allowed!"
+        

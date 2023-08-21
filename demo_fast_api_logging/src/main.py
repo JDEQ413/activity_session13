@@ -1,4 +1,3 @@
-import logging
 from enum import Enum
 from fastapi import (
     FastAPI, 
@@ -8,18 +7,11 @@ from fastapi import (
     HTTPException,
     status)
 from .calculator.calculator import Calculator
+from utilities.custom_logging import CustomLogging
 
 calc = Calculator()
-logger = logging.getLogger(__name__) # Indicamos que tome el nombre del modulo
-logger.setLevel(logging.DEBUG) # Configuramos el nivel de logging
-
-formatter = logging.Formatter('%(asctime)s:%(name)s:%(module)s:%(levelname)s:%(message)s') # Creamos el formato
-
-file_handler = logging.FileHandler('main_fast_api.log') # Indicamos el nombre del archivo
-
-file_handler.setFormatter(formatter) # Configuramos el formato
-
-logger.addHandler(file_handler) # Agregamos el archivo
+logger = CustomLogging()
+logger = logger.Create_Logger('main_fast_api.log')
 
 class CalculatorFormat(str, Enum):
     SHORT = "digital"
@@ -180,12 +172,12 @@ async def divide(v1: float, v2: float):
             }
             ```
     """
-    if v2 == 0 or v1 == 0:
-        print("resultado: cannot divide with 0")
-        logger.debug('resultado: cannot divide with 0')
-        return {"resultado": "can't divide with 0"}
+    #if v2 == 0 or v1 == 0:
+    #    print("resultado: cannot divide by 0")
+    #    logger.debug('resultado: cannot divide by 0')
+    #    return {"resultado": "can't divide by 0"}
 
-    result = int(calc.divide(v1, v2))
+    result = calc.divide(v1, v2) #int(calc.divide(v1, v2))
     logger.debug(f'resultado divide: {result}')
     return {"resultado": result}
 
